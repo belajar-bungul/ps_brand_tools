@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="cdp_search_by_brand_pos.NavbarCustom" t-inherit="point_of_sale.Navbar" t-inherit-mode="extension">
+        <xpath expr="//Input" position="replace">
+            <Input tModel="[pos, 'searchProductWord']"
+                    class="'p-0'"
+                    isSmall="ui.isSmall"
+                    placeholder.translate="Products..."
+                    icon="{type: 'fa', value: 'fa-search fa-lg fa-fw'}"
+                    debounceMillis="500"
+                    t-if="pos.showSearchButton()" />
+        </xpath>
+        <xpath expr="//Input" position="before">
+            <Input tModel="[pos, 'searchBrandWord']"
+                        class="'p-0'"
+                        isSmall="ui.isSmall"
+                        placeholder.translate="Brand..."
+                        icon="{type: 'fa', value: 'fa-search fa-lg fa-fw'}"
+                        debounceMillis="500"
+                        t-if="pos.showSearchButton()" />
+        </xpath>
+
+    </t>
+</templates>

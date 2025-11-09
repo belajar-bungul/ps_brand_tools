@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Product Brand POS Search — ARA SOFT</title>
+  <style>
+    :root{
+      --max-width: 980px;
+      --primary: #875A7B;
+      --bg: #f7f7f8;
+      --card-bg: #ffffff;
+      --muted: #6b6b6b;
+      --radius: 10px;
+      --gap: 20px;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color-scheme: light;
+    }
+
+    html,body{height:100%; margin:0; background:var(--bg); color:#222;}
+    .wrap{max-width:var(--max-width); margin:0 auto; padding:24px;}
+
+    /* Header */
+    header {
+      background: var(--primary);
+      color: #fff;
+      padding:32px;
+      border-radius: var(--radius);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+      margin-bottom: var(--gap);
+    }
+    header h1{margin:0; font-size:1.6rem;}
+    header p{margin:8px 0 0; color:rgba(255,255,255,0.92); font-size:0.95rem;}
+
+    /* Cards / sections */
+    .card {
+      background: var(--card-bg);
+      padding:20px;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 12px rgba(12,12,12,0.04);
+    }
+    .card + .card { margin-top: var(--gap); }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--gap);
+    }
+    @media (min-width:800px){
+      .grid-2{ grid-template-columns: 1fr 1fr; }
+    }
+
+    h2, h3 { color: #222; margin:0 0 8px 0; }
+    h2{ font-size:1.15rem; }
+    h3{ font-size:1rem; }
+
+    p { margin:0 0 12px 0; line-height:1.5; color:var(--muted); }
+    ul { margin:8px 0 0 20px; color:var(--muted); }
+    code { background:#f1f1f1; padding:2px 6px; border-radius:6px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace; font-size:0.92em; }
+
+    .two-col { display:flex; flex-direction:column; gap:12px; }
+    @media (min-width:800px){ .two-col{ flex-direction:row; } }
+    .col { flex:1; }
+
+    pre.code-snippet {
+      background:#fafafa;
+      border:1px solid #eee;
+      padding:12px;
+      border-radius:8px;
+      font-size:0.88rem;
+      overflow:auto;
+      color:#333;
+    }
+
+    .screenshot {
+      width:100%;
+      height:200px;
+      object-fit:cover;
+      border-radius:8px;
+      background:#efefef;
+      display:block;
+    }
+    .meta { font-size:0.82rem; color:#9a9a9a; margin-top:8px; text-align:center; }
+
+    footer { text-align:center; color:#9a9a9a; margin-top:28px; font-size:0.85rem; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Product Brand POS Search</h1>
+      <p>Enhance Odoo POS search with Brand filtering and combined Brand + Product Name / Barcode / Reference Search.</p>
+    </header>
+
+    <main>
+      <!-- Overview -->
+      <section class="card">
+        <h2>Overview</h2>
+        <p><strong>Product Brand POS Search</strong> extends Odoo's Point of Sale ProductScreen to allow quick filtering by <em>Brand</em> in addition to product name, default code, and barcode. It supports combining brand and product search for faster product lookup during POS operations.</p>
+
+        <div class="grid-2" style="margin-top:16px;">
+          <div>
+            <h3>Key Features</h3>
+            <ul>
+              <li>Filter products by <strong>Brand</strong> in POS</li>
+              <li>Combine <strong>Brand</strong> + <strong>Product Name / Barcode / Reference</strong> search</li>
+              <li>Auto-reset category when brand search starts</li>
+              <li>Optimized product list rendering (limited 100 items)</li>
+              <li>Minimal patch, fully compatible with standard POS</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3>Technical Notes</h3>
+            <p>The module patches <code>ProductScreen</code> from Odoo POS frontend, adding new getters like <code>searchBrand</code> and improving <code>productsToDisplay</code> logic to handle brand + Product Name / Barcode / Reference filtering.</p>
+
+            <pre class="code-snippet"><code>patch(ProductScreen.prototype, {
+  get searchBrand() { return this.pos.searchBrandWord.trim(); },
+  get productsToDisplay() { /* brand + name logic */ },
+});</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screenshots -->
+      <section class="grid-2" style="margin-top:var(--gap);">
+        <article class="card">
+          <h3>1) Searching by Brand Only</h3>
+          <p>Type a brand (e.g. <em>lambo</em>) — the POS shows only products from that brand.</p>
+          <img class="screenshot" src="screenshot_brand_only.png" alt="POS Brand Search Example">
+        </article>
+        <br/>
+        <article class="card">
+          <h3>2) Brand + Product Name / Barcode / Reference Search</h3>
+          <p>Combine brand and product name (e.g. <em>lambo + green</em>) for precision filtering.</p>
+          <img class="screenshot" src="screenshot_brand_and_name.png" alt="POS Brand and Product Search Example">
+        </article>
+      </section>
+      <br/>
+      <!-- How to Use -->
+      <section class="card" style="margin-top:var(--gap);">
+        <h3>How to Use</h3>
+        <ol style="color:var(--muted); margin-top:12px;">
+          <li>Install the module and update your POS configuration.</li>
+          <li>Open the POS Product screen.</li>
+          <li>Type a brand name in the brand search field, optionally combine with product name / barcode / reference.</li>
+        </ol>
+        <p>notes : you need install product brand oca 18 https://apps.odoo.com/apps/modules/18.0/product_brand</p>
+
+      </section>
+
+      <footer>
+        © 2025 ARA SOFT — POS Customization Team
+      </footer>
+    </main>
+  </div>
+</body>
+</html>
