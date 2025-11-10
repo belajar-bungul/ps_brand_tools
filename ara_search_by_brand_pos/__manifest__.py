@@ -1,6 +1,6 @@
 
 {
-    "name": "Product Brand Pos Search",
+    "name": "Product Brand POS Search",
     "version": "18.0.0.0.0",
     "category": "Point Of Sale",
     "price" : 39.72,
